@@ -1,1 +1,0 @@
-# JEC-IndProj-Team21
