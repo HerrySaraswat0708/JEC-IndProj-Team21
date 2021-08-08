@@ -54,7 +54,7 @@ def Main():
     connect(clientsocket, (struct sockaddr*)&serverAddress, sizeof(serverAddress))
 
     # message you send to server
-    message = Hello 
+   
     while True:
 
         # message sent to server
