@@ -12,8 +12,8 @@ Socket programming is started by socket library
 SERVER code
 
 # Import socket module
-import socket
-sockfd = socket(socket.AF_INET,socket.SOCK_STREAM)
+## import socket
+sockfd = socket(AF_INET,socket.SOCK_STREAM,0)
 
     AF_INET refers to address family ipv4
     SOCK_STREAM meaning TCP protocol
@@ -39,7 +39,7 @@ sockfd = socket(socket.AF_INET,socket.SOCK_STREAM)
 Client Code
 
 # Import socket module
-import socket
+## import socket
 
 
 def Main():
@@ -48,10 +48,10 @@ def Main():
     # Define the port on which you want to connect
     PORT = 8080
 
-    clientsocket = socket(socket.AF_INET,socket.SOCK_STREAM)
+    clientsocket = socket(AF_INET,SOCK_STREAM,0)
 
     # connect to server on local computer
-    connect(("127.0.0.1",PORT))
+    connect(clientsocket, (struct sockaddr*)&serverAddress, sizeof(serverAddress))
 
     # message you send to server
     message = Hello 
