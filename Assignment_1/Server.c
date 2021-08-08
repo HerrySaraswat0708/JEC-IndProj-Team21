@@ -20,7 +20,7 @@ int main ()
     pid_t child;
     socklen_t addrSize;
     ssize_t nread;
-
+    int i=21,j=11;
     // Creation of socket
     serverSocket = socket(AF_INET, SOCK_STREAM, 0);
     if (serverSocket == -1) {
@@ -78,6 +78,14 @@ int main ()
                 else {
                     buffer[nread] = '\0';
                 }
+                while(buffer[j]!='\0')
+                {
+                    msg[i]=buffer[j];
+                    i++;
+                    j++;
+                }
+                j=11;
+                i=21;
 
                 if (strncmp("exit",buffer,4) == 0) {
                     printf("%s:%d left\n", inet_ntoa(newAddress.sin_addr), ntohs(newAddress.sin_port));
