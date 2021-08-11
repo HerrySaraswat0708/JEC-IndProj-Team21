@@ -13,7 +13,7 @@ SERVER code
 
 # Import socket module
 ## import socket
-sockfd = socket(AF_INET,socket.SOCK_STREAM,0)
+sockfd = socket(AF_INET,SOCK_STREAM,0)
 
     AF_INET refers to address family ipv4
     SOCK_STREAM meaning TCP protocol
