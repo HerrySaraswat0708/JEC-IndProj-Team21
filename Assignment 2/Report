@@ -32,3 +32,80 @@ localhost, hence we use INADDR_ANY to specify the IP address.
 int listen(int sockfd, int backlog);
 It puts the server socket in a passive mode, where it waits for the client to approach the server
 to make a connection. The backlog defines the maximum length to which the queue of pending
+connections for sockfd may grow. If a connection request arrives when the queue is full, the
+client may receive an error with an indication of ECONNREFUSED.
+5. Accept:
+int new_socket= accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
+It extracts the first connection request on the queue of pending connections for the listening
+socket, sockfd, creates a new connected socket, and returns a new file descriptor referring to
+that socket. At this point, connection is established between client and server, and they are
+ready to transfer data.
+❖ Stages for Client
+1. Socket connection: Exactly same as that of server’s socket creation
+2. Connect:
+int connect(int sockfd, const struct sockaddr *addr,
+socklen_t addrlen);
+The connect() system call connects the socket referred to by the file descriptor sockfd to the
+address specified by addr. Server’s address and port is specified in addr.
+Diagram for server and client socket stages
+                   C++ Multithreading
+Multithreading is a specialized form of multitasking and a multitasking is the feature that allows
+your computer to run two or more programs concurrently. In general, there are two types of
+multitasking:
+1) Process-Based - Process-based multitasking handles the concurrent execution of
+programs.
+2) Thread-Based- Thread-based multitasking deals with the concurrent execution of pieces
+of the same program.
+⦁ A multithreaded program contains two or more parts that can run concurrently. Each part
+of such a program is called a thread, and each thread defines a separate path of execution.
+⦁ C++ does not contain any built-in support for multithreaded applications. Instead, it relies
+entirely upon the operating system to provide this feature.
+a) Creating Threads
+The following routine is used to create a POSIX thread −
+#include <pthread.h>
+pthread_create (thread, attr, start_routine, arg)
+Here, pthread_create creates a new thread and makes it executable. This routine can be called
+any number of times from anywhere within your code. Here is the description of the parameters
+−
+1) thread
+An opaque, unique identifier for the new thread returned by the subroutine.
+2) attr
+An opaque attribute object that may be used to set thread attributes. You can specify a thread
+attributes object, or NULL for the default values.
+3) start_routine
+The C++ routine that the thread will execute once it is created.
+4) arg
+A single argument that may be passed to start_routine. It must be passed by reference as a
+pointer cast of type void. NULL may be used if no argument is to be passed.
+⦁ The maximum number of threads that may be created by a process is implementation
+dependent.
+⦁ Once created, threads are peers, and may create other threads. There is no implied
+hierarchy or dependency between threads.
+b) Terminating Threads
+There is following routine which we use to terminate a POSIX thread −
+#include <pthread.h>
+pthread_exit (status)
+⦁ Here pthread_exit is used to explicitly exit a thread. Typically, the pthread_exit() routine
+is called after a thread has completed its work and is no longer required to exist.
+⦁ If main() finishes before the threads it has created, and exits with pthread_exit(), the
+other threads will continue to execute. Otherwise, they will be automatically terminated when
+main() finishes.
+c) Passing Arguments to Threads
+⦁ We use "pthread_create" to create a thread and passes the arguments inside the ().
+⦁ Thread id is the first argument
+⦁ NULL is the second argument(which should be some attribute, but we may not use it)
+⦁ The third argument is the function
+⦁ Then the last argument is what we want to pass to the new thread.
+⦁ When we define the function, it can accept a pointer as an argument.
+⦁ we want to pass more than one argument to the function, so we create a pointer point to
+a struct we have created, transfer it and pass to function.
+⦁ In function, we transfer the type of pointer to the real type, so that we can properly use it.
+d) Joining and Detaching Threads
+There are following two routines which we can use to join or detach threads −
+pthread_join (threadid, status)
+pthread_detach (threadid)
+⦁ The pthread_join() subroutine blocks the calling thread until the specified 'threadid'
+thread terminates. When a thread is created, one of its attributes defines whether it is joinable or
+detached.
+⦁ Only threads that are created as joinable can be joined.
+⦁ If a thread is created as detached, it can never be joined.
